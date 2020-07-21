@@ -24,7 +24,7 @@ with open(latest_file, 'rb') as data_file:
 
     for item in dict['sessionResult']['leaderBoardLines']:
 
-        pilot_name = item['car']['drivers'][0]['lastName']
+        pilot_name = item['car']['drivers'][0]['firstName'] + " " + item['car']['drivers'][0]['lastName'] 
         best_time = item['timing']['bestLap']
         best_split_1 = item['timing']['bestSplits'][0]
         best_split_2 = item['timing']['bestSplits'][1]
