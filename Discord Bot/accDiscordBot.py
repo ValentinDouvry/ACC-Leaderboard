@@ -35,6 +35,10 @@ async def on_ready():
 async def temps(ctx, trackName):
 
     try:
+        sqlStringCar = "SELECT * FROM car;"
+        cursor.execute(sqlStringCar)
+        listCars = cursor.fetchall()
+
         track = trackName
 
         sqlStringTime = "SELECT * FROM track WHERE track_name = %s;"
@@ -56,6 +60,9 @@ async def temps(ctx, trackName):
             timeTable.title = stringTimeTableTitle
             i = 0
             for row in times:
+                for rowCars in listCars:
+                    if rowCars[0] == row[7]:
+                        carName = rowCars[2]
                 i = i+1
                 if row[9] == 0:
                     isRain = "Non"
@@ -69,7 +76,7 @@ async def temps(ctx, trackName):
                     seconds=(millis/(1000.0))%60
                     seconds=round(seconds, 3)
                     time = str(minutes) + ":" + str(seconds)
-                    timeTable.add_row([str(i),row[1],time,row[7],isRain,row[10]]) 
+                    timeTable.add_row([str(i),row[1],time,carName,isRain,row[9]]) 
 
             stringMessage = "```\n"
             stringMessage += timeTable.get_string()
