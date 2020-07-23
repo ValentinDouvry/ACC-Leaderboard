@@ -5,6 +5,19 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix='$')
 
+trackTable = prettytable.PrettyTable()
+trackTable.title = 'Liste des circuits disponibles'
+trackTable.field_names = ["1", "2", "3", "4",]
+trackTable.header = False            
+trackTable.add_row(["monza","zolder","brands_hatch","silverstone"])
+trackTable.add_row(["paul_ricard","misano","spa","nurburgring"])
+trackTable.add_row(["barcelona","hungaroring","zandvoort","monza_2019"])
+trackTable.add_row(["zolder_2019","brands_hatch_2019","silverstone_2019","paul_ricard_2019"])
+trackTable.add_row(["misano_2019","spa_2019","nurburgring_2019","barcelona_2019"])
+trackTable.add_row(["hungaroring_2019","zandvoort_2019","kyalami_2019","mount_panorama_2019"])
+trackTable.add_row(["suzuka_2019","laguna_seca_2019","",""])
+
+
 @bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
@@ -28,19 +41,8 @@ async def temps(ctx, trackName):
         cursor.execute(sqlStringTime,[track,])
         validTrack = cursor.fetchall()
         if not validTrack:
-            trackTable = prettytable.PrettyTable()
-            trackTable.title = 'Liste des circuits disponibles'
-            trackTable.field_names = ["1", "2", "3", "4",]
-            trackTable.header = False            
-            trackTable.add_row(["monza","zolder","brands_hatch","silverstone"])
-            trackTable.add_row(["paul_ricard","misano","spa","nurburgring"])
-            trackTable.add_row(["barcelona","hungaroring","zandvoort","monza_2019"])
-            trackTable.add_row(["zolder_2019","brands_hatch_2019","silverstone_2019","paul_ricard_2019"])
-            trackTable.add_row(["misano_2019","spa_2019","nurburgring_2019","barcelona_2019"])
-            trackTable.add_row(["hungaroring_2019","zandvoort_2019","kyalami_2019","mount_panorama_2019"])
-            trackTable.add_row(["suzuka_2019","laguna_seca_2019","",""])
-
-            stringMessage = "```Circuit non reconnu ! Veuillez choisir un circuit existant (ex: $temps monza_2019) :\n"
+            stringMessage = "Circuit non reconnu! Veuillez choisir un circuit existant\n"
+            stringMessage += "```\n"
             stringMessage += trackTable.get_string()
             stringMessage += "```"
             await ctx.send(stringMessage)
@@ -69,29 +71,27 @@ async def temps(ctx, trackName):
                     time = str(minutes) + ":" + str(seconds)
                     timeTable.add_row([str(i),row[1],time,row[7],isRain,row[10]]) 
 
-            stringMessage = "```"
+            stringMessage = "```\n"
             stringMessage += timeTable.get_string()
             stringMessage += "```"
             await ctx.send(stringMessage)                            
                     
     except (Exception, psycopg2.Error) as error:
-        print("Failed to get stats from table time", error)
+        await ctx.send("Il semble y avoir un problème avec la base de données!") 
+        print("Failed to get stats from database", error)
+
+@temps.error
+async def temps_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        stringError = 'Veuillez choisir un circuit!\n'
+        stringError +="```\n"
+        stringError += trackTable.get_string()
+        stringError += "```"
+        await ctx.send(stringError)
 
 @bot.command(description='Liste les circuits disponibles')
 async def circuits(ctx):
-    trackTable = prettytable.PrettyTable()
-    trackTable.title = 'Liste des circuits disponibles'
-    trackTable.field_names = ["1", "2", "3", "4",]
-    trackTable.header = False            
-    trackTable.add_row(["monza","zolder","brands_hatch","silverstone"])
-    trackTable.add_row(["paul_ricard","misano","spa","nurburgring"])
-    trackTable.add_row(["barcelona","hungaroring","zandvoort","monza_2019"])
-    trackTable.add_row(["zolder_2019","brands_hatch_2019","silverstone_2019","paul_ricard_2019"])
-    trackTable.add_row(["misano_2019","spa_2019","nurburgring_2019","barcelona_2019"])
-    trackTable.add_row(["hungaroring_2019","zandvoort_2019","kyalami_2019","mount_panorama_2019"])
-    trackTable.add_row(["suzuka_2019","laguna_seca_2019","",""])
-
-    stringMessage = "```"
+    stringMessage = "```\n"
     stringMessage += trackTable.get_string()
     stringMessage += "```"
     await ctx.send(stringMessage)
