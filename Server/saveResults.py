@@ -38,14 +38,15 @@ with open(latest_file, 'rb') as data_file:
         isRaining = dict['sessionResult']['isWetSession']
         sessionType = dict['sessionType']
         track = dict['trackName']
-        try:
-            sqlString = "INSERT INTO time (time_id, pilot_name, lap_time, split_1, split_2, split_3, track_name, car_id, is_wet_session, session_type) VALUES(DEFAULT,%s,%s,%s,%s,%s,%s,%s,%s,%s);"
-            data = (pilot_name,best_time,best_split_1,best_split_2,best_split_3,track,carId,isRaining,sessionType)
-            cursor.execute(sqlString,data)
-            connection.commit()
-            print ("Successfully inserted into time table")
-        except (Exception, psycopg2.Error) as error :
-                print("Failed to insert into time table", error)
+        if best_time != 2147486647:
+            try:
+                sqlString = "INSERT INTO time (time_id, pilot_name, lap_time, split_1, split_2, split_3, track_name, car_id, is_wet_session, session_type) VALUES(DEFAULT,%s,%s,%s,%s,%s,%s,%s,%s,%s);"
+                data = (pilot_name,best_time,best_split_1,best_split_2,best_split_3,track,carId,isRaining,sessionType)
+                cursor.execute(sqlString,data)
+                connection.commit()
+                print ("Successfully inserted into time table")
+            except (Exception, psycopg2.Error) as error :
+                    print("Failed to insert into time table", error)
         
     cursor.close()
     connection.close()
