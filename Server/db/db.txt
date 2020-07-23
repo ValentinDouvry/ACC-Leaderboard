@@ -1,0 +1,13 @@
+CREATE TABLE time (time_id serial PRIMARY KEY, pilot_name varchar (50), lap_time int, split_1 int, split_2 int, split_3 int, track_name varchar (50), car_id int, is_wet_session int, session_type Char (1));
+
+
+
+CREATE TABLE track (track_id serial PRIMARY KEY,track_name varchar (50));
+
+INSERT INTO track (track_id, track_name) VALUES (DEFAULT,'monza'),(DEFAULT,'zolder'),(DEFAULT,'brands_hatch'),(DEFAULT,'silverstone'),(DEFAULT,'paul_ricard'),(DEFAULT,'misano'),(DEFAULT,'spa'),(DEFAULT,'nurburgring'),(DEFAULT,'barcelona'),(DEFAULT,'hungaroring'),(DEFAULT,'zandvoort'),(DEFAULT,'monza_2019'),(DEFAULT,'zolder_2019'),(DEFAULT,'brands_hatch_2019'),(DEFAULT,'silverstone_2019'),(DEFAULT,'paul_ricard_2019'),(DEFAULT,'misano_2019'),(DEFAULT,'spa_2019'),(DEFAULT,'nurburgring_2019'),(DEFAULT,'barcelona_2019'),(DEFAULT,'hungaroring_2019'),(DEFAULT,'zandvoort_2019'),(DEFAULT,'kyalami_2019'),(DEFAULT,'mount_panorama_2019'),(DEFAULT,'suzuka_2019'),(DEFAULT,'laguna_seca_2019');
+
+
+
+CREATE TABLE car (car_id serial PRIMARY KEY,car_model int,car_name varchar (50),category varchar (20));
+
+INSERT INTO car (car_id, car_model, car_name,category) VALUES (DEFAULT,0,'Porsche 991 GT3','GT3'),(DEFAULT,1,'Mercedes AMG GT3','GT3'),(DEFAULT,2,'Ferrari 488 GT3','GT3'),(DEFAULT,3,'Audi R8 LMS','GT3'),(DEFAULT,4,'Lamborghini Huracan GT3','GT3'),(DEFAULT,5,'McLaren 650s GT3','GT3'),(DEFAULT,6,'Nissan GT R Nismo GT3 2018','GT3'),(DEFAULT,7,'BMW M6 GT3','GT3'),(DEFAULT,8,'Bentley Continental GT3 2018','GT3'),(DEFAULT,9,'Porsche 991.2 GT3 Cup','GT3'),(DEFAULT,10,'Nissan GT-R Nismo GT3 2017','GT3'),(DEFAULT,11,'Bentley Continental GT3 2016','GT3'),(DEFAULT,12,'Aston Martin Vantage V12 GT3','GT3'),(DEFAULT,13,'Lamborghini Gallardo R-EX','GT3'),(DEFAULT,14,'Jaguar G3','GT3'),(DEFAULT,15,'Lexus RC F GT3','GT3'),(DEFAULT,16,'Lamborghini Huracan Evo (2019)','GT3'),(DEFAULT,17,'Honda NSX GT3','GT3'),(DEFAULT,18,'Lamborghini Huracan SuperTrofeo','GT3'),(DEFAULT,19,'Audi R8 LMS Evo (2019)','GT3'),(DEFAULT,20,'AMR V8 Vantage (2019)','GT3'),(DEFAULT,21,'Honda NSX Evo (2019)','GT3'),(DEFAULT,22,'McLaren 720S GT3 (2019)','GT3'),(DEFAULT,23,'Porsche 911 II GT3 R (2019)','GT3'),(DEFAULT,50,'Alpine A1110 GT4','GT4'),(DEFAULT,51,'Aston Martin Vantage GT4','GT4'),(DEFAULT,52,'Audi R8 LMS GT4','GT4'),(DEFAULT,53,'BMW M4 GT4','GT4'),(DEFAULT,55,'Chevrolet Camaro GT4','GT4'),(DEFAULT,56,'Ginetta G55 GT4','GT4'),(DEFAULT,57,'KTM X-Bow GT4','GT4'),(DEFAULT,58,'Maserati MC GT4','GT4'),(DEFAULT,59,'McLaren 570S GT4','GT4'),(DEFAULT,60,'Mercedes AMG GT4','GT4'),(DEFAULT,61,'Porsche 718 Cayman GT4','GT4');
