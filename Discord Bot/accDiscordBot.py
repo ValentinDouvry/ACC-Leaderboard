@@ -72,7 +72,7 @@ async def temps(ctx, *args):
                         if rowCars[0] == row[7]:
                             carName = rowCars[2]
                     i = i+1
-                    if row[9] == 0:
+                    if row[8] == 0:
                         isRain = "Non"
                     else:
                         isRain = "Oui"
@@ -128,7 +128,7 @@ async def temps(ctx, *args):
                         if rowCars[0] == timePilot[7]:
                             carName = rowCars[2]
 
-                    if timePilot[9] == 0:
+                    if timePilot[8] == 0:
                         isRain = "Non"
                     else:
                         isRain = "Oui"
