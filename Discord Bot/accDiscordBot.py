@@ -76,7 +76,7 @@ async def temps(ctx, *args):
                         isRain = "Non"
                     else:
                         isRain = "Oui"
-                    if row[2] != 2147483647:
+                    if row[2] < 240000:
                         time = ""
                         millis= row[2]
                         minutes=(millis/(1000*60))%60
@@ -133,7 +133,7 @@ async def temps(ctx, *args):
                     else:
                         isRain = "Oui"
 
-                    if timePilot[2] != 2147483647:
+                    if timePilot[2] < 240000:
                         time = ""
                         millis= timePilot[2]
                         minutes=(millis/(1000*60))%60
